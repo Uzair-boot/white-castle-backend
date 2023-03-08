@@ -1,7 +1,6 @@
 const express = require ('express')
 const app = express();
-// const MONGO_URL = "mongodb+srv://uzair:BCGoKwvfyFUSIn3L@cluster0.zrjubhl.mongodb.net/?retryWrites=true&w=majority"
-const MONGO_URL ="mongodb://localhost:27017" 
+const MONGO_URL ="mongodb://adminWhite:W%40Castle1@localhost:27017/wc_pos" 
 
 const mongoose = require ('mongoose');
 const dotenv = require ('dotenv');
@@ -19,6 +18,9 @@ mongoose.connect(MONGO_URL, (err)=>{
 const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const menuesRoute = require('./routes/menu');
+const unitsRoute = require('./routes/units');
+const ingredientCategoriesRoute = require('./routes/ingredient-categories');
+const ingredientsRoute = require('./routes/ingredients');
 //middlewares
 
 app.use(express.json());
@@ -31,6 +33,9 @@ app.use(cors())
 app.use('/api/users' , userRoute);
 app.use('/api/auth' , authRoute);
 app.use('/api/menues' , menuesRoute);
+app.use('/api/units' , unitsRoute);
+app.use('/api/ingredient-categories' , ingredientCategoriesRoute);
+app.use('/api/ingredients' , ingredientsRoute);
 
 dotenv.config();
 
