@@ -5,7 +5,7 @@ const IngredientCategories = require('../models/IngredientCategories');
 //create a ingredientCategory
 
 router.post('/', async (req, res)=>{
-    if(req.body.isAdmin){
+    // if(req.body.isAdmin){
         const newIngredientCategory = new IngredientCategories(req.body);
         try{
             const savedIngredientCategory = await newIngredientCategory.save();
@@ -14,9 +14,9 @@ router.post('/', async (req, res)=>{
             res.status(500).json(err);
         }
         
-    } else{
-        return res.status(403).json("You are unauthorized.")
-    }
+    // } else{
+    //     return res.status(403).json("You are unauthorized.")
+    // }
 })
 
 //update ingredientCategory

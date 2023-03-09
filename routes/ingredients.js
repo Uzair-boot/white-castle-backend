@@ -21,7 +21,7 @@ router.post('/', async (req, res)=>{
 
 //update ingredient
 router.put('/:id', async (req, res)=>{
-    if(req.body.isAdmin){
+    // if(req.body.isAdmin){
         try{
             const ingredient = await Ingredients.findByIdAndUpdate(req.params.id, {
                 $set: req.body,
@@ -31,14 +31,14 @@ router.put('/:id', async (req, res)=>{
             return res.status(500).json(err);
         }
 
-    } else{
-        return res.status(403).json("You are unauthorized.")
-    }
+    // } else{
+    //     return res.status(403).json("You are unauthorized.")
+    // }
 });
 
 //Delete ingredient
 router.delete('/:id', async (req, res)=>{
-    if(req.body.isAdmin){
+    // if(req.body.isAdmin){
         try{
             const ingredient = await Ingredients.findByIdAndDelete(req.params.id);
             res.status(200).json("Unit has been Deleted")
@@ -46,9 +46,9 @@ router.delete('/:id', async (req, res)=>{
             return res.status(500).json(err);
         }
 
-    } else{
-        return res.status(403).json("You are unauthorized.")
-    }
+    // } else{
+    //     return res.status(403).json("You are unauthorized.")
+    // }
 });
 
 
@@ -68,7 +68,7 @@ router.get('/:id', async (req, res)=>{
 
 router.get('/', async (req, res) => {
     try {
-      const ingredientCategories = await Ingredients.find();
+      const ingredientCategories = await Ingredients.find().populate("category", 'name').populate("unit", "code");
       res.status(200).json(ingredientCategories);
     } catch (err) {
       res.status(500).json({ error: err.message });

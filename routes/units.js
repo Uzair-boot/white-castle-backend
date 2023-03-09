@@ -5,7 +5,7 @@ const Units = require('../models/Units');
 //create a unit
 
 router.post('/', async (req, res)=>{
-    if(req.body.isAdmin){
+    // if(req.body.isAdmin){
         const newUnit = new Units(req.body);
         try{
             const savedUnit = await newUnit.save();
@@ -14,9 +14,9 @@ router.post('/', async (req, res)=>{
             res.status(500).json(err);
         }
         
-    } else{
-        return res.status(403).json("You are unauthorized.")
-    }
+    // } else{
+    //     return res.status(403).json("You are unauthorized.")
+    // }
 })
 
 //update unit

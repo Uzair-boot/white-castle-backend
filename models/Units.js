@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const FKHelper = require("./helpers/foreign-key-helper")
+const Schema = mongoose.Schema;
 
 const UnitSchema = new mongoose.Schema({
     code : {
@@ -16,10 +18,16 @@ const UnitSchema = new mongoose.Schema({
         unique: true,
     },
 
-    baseCode : {
-        type: String,
-        min: 1,
-        max: 10,
+    baseUnit : {
+        type: Schema.Types.ObjectId,
+        ref: 'Unit',
+        validate: {
+            isAsync: true,
+            validator: function(v) {
+                return FKHelper(mongoose.model("Unit"), v)
+            },
+            message: `Unit doesn't exist`
+        },
     },
 
     baseMultiplier : {
