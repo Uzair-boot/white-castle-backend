@@ -40,8 +40,11 @@ router.put('/:id', async (req, res)=>{
 router.delete('/:id', async (req, res)=>{
     // if(req.body.isAdmin){
         try{
-            const ingredient = await Ingredients.findByIdAndDelete(req.params.id);
-            res.status(200).json("Unit has been Deleted")
+            const ingredient = await Ingredients//.findByIdAndRemove(req.params.id);
+            .findByIdAndUpdate(req.params.id, {
+                active:false
+            });
+            res.status(200).json("Ingredient has been Deleted")
         } catch(err){
             return res.status(500).json(err);
         }
@@ -68,8 +71,10 @@ router.get('/:id', async (req, res)=>{
 
 router.get('/', async (req, res) => {
     try {
-      const ingredientCategories = await Ingredients.find().populate("category", 'name').populate("unit", "code");
-      res.status(200).json(ingredientCategories);
+      const ingredients = await Ingredients
+      .find({"active":"true"})
+      .populate("category", 'name').populate("unit", "code");
+      res.status(200).json(ingredients);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
