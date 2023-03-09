@@ -1,6 +1,7 @@
 const express = require ('express')
 const app = express();
-const MONGO_URL ="mongodb://adminWhite:W%40Castle1@localhost:27017/wc_pos" 
+// const MONGO_URL ="mongodb://adminWhite:W%40Castle1@localhost:27017/wc_pos" 
+const MONGO_URL ="mongodb://103.18.20.49:3029/wc_pos" 
 
 const mongoose = require ('mongoose');
 const dotenv = require ('dotenv');
