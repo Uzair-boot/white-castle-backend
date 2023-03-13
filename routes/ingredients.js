@@ -1,9 +1,9 @@
-const router = require("express").Router();
-const Ingredient = require("../models/Ingredient");
+const router = require('express').Router();
+const Ingredient = require('../models/Ingredient');
+const { verifyToken, canManageIngredients } = require('../middlewares/authJWT');
 
 //create a ingredient
-
-router.post("/", async (req, res) => {
+router.post('/', verifyToken, canManageIngredients, async (req, res) => {
   // if(req.body.isAdmin){
   const newIngredient = new Ingredient(req.body);
   try {
@@ -19,13 +19,13 @@ router.post("/", async (req, res) => {
 });
 
 //update ingredient
-router.put("/:id", async (req, res) => {
+router.put('/:id', verifyToken, canManageIngredients, async (req, res) => {
   // if(req.body.isAdmin){
   try {
     const ingredient = await Ingredient.findByIdAndUpdate(req.params.id, {
       $set: req.body,
     });
-    res.status(200).json("IngredientCategory has been Updated");
+    res.status(200).json('IngredientCategory has been Updated');
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -36,14 +36,14 @@ router.put("/:id", async (req, res) => {
 });
 
 //Delete ingredient
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', verifyToken, canManageIngredients, async (req, res) => {
   // if(req.body.isAdmin){
   try {
     const ingredient = await Ingredient.findByIdAndUpdate(req.params.id, {
       //.findByIdAndRemove(req.params.id);
       active: false,
     });
-    res.status(200).json("Ingredient has been Deleted");
+    res.status(200).json('Ingredient has been Deleted');
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -55,7 +55,7 @@ router.delete("/:id", async (req, res) => {
 
 // Get ingredient
 
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const ingredient = await Ingredient.findById(req.params.id);
     const { updatedAt, ...other } = ingredient._doc;
@@ -67,11 +67,12 @@ router.get("/:id", async (req, res) => {
 
 // get all ingredients
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const ingredients = await Ingredient.find({ active: "true" })
-      .populate("category", "name")
-      .populate("unit", "code");
+    const ingredients = await Ingredient.find({ active: 'true' })
+      .sort({ createdAt: 'desc' })
+      .populate('category', 'name')
+      .populate('unit', 'code');
     res.status(200).json(ingredients);
   } catch (err) {
     res.status(500).json({ error: err.message });

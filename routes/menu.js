@@ -1,10 +1,10 @@
-const router = require("express").Router();
-const Menu = require("../models/Menu");
-const User = require("../models/User");
+const router = require('express').Router();
+const Menu = require('../models/Menu');
+const User = require('../models/User');
 
 //create a menu
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   const newMenu = new Menu(req.body);
   try {
     const savedMenu = await newMenu.save();
@@ -15,14 +15,14 @@ router.post("/", async (req, res) => {
 });
 //update a menu
 
-router.put("/:id", async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const menu = await Menu.findById(req.params.id);
     if (menu.userId === req.body.userId) {
       await menu.updateOne({ $set: req.body });
-      res.status(200).json("menu updated");
+      res.status(200).json('menu updated');
     } else {
-      res.status(403).json("you can update your menu only");
+      res.status(403).json('you can update your menu only');
     }
   } catch (err) {
     res.status(500).json(err);
@@ -31,14 +31,14 @@ router.put("/:id", async (req, res) => {
 
 //delete a menu
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const menu = await Menu.findById(req.params.id);
     if (menu.userId === req.body.userId) {
       await menu.deleteOne();
-      res.status(200).json("Menu deleted");
+      res.status(200).json('Menu deleted');
     } else {
-      res.status(403).json("you can delete your Menu only");
+      res.status(403).json('you can delete your Menu only');
     }
   } catch (err) {
     res.status(500).json(err);
@@ -47,7 +47,7 @@ router.delete("/:id", async (req, res) => {
 
 // get a menu
 
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const menu = await Menu.findById(req.params.id);
     res.status(200).json(menu);
@@ -58,7 +58,7 @@ router.get("/:id", async (req, res) => {
 
 // get all menues
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const menus = await Menu.find();
     res.status(200).json(menus);

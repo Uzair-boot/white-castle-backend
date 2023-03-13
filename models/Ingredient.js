@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const foreignKeyHelper = require("./helpers/foreign-key-helper");
+const mongoose = require('mongoose');
+const foreignKeyHelper = require('./helpers/foreign-key-helper');
 
 const IngredientSchema = new mongoose.Schema(
   {
@@ -11,11 +11,11 @@ const IngredientSchema = new mongoose.Schema(
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "IngredientCategory",
+      ref: 'IngredientCategory',
       validate: {
         isAsync: true,
         validator: function (v) {
-          return foreignKeyHelper(mongoose.model("IngredientCategory"), v);
+          return foreignKeyHelper(mongoose.model('IngredientCategory'), v);
         },
         message: `IngredientCategory doesn't exist`,
       },
@@ -23,11 +23,11 @@ const IngredientSchema = new mongoose.Schema(
     },
     unit: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Unit",
+      ref: 'Unit',
       validate: {
         isAsync: true,
         validator: function (v) {
-          return foreignKeyHelper(mongoose.model("Unit"), v);
+          return foreignKeyHelper(mongoose.model('Unit'), v);
         },
         message: `Unit doesn't exist`,
       },
@@ -53,4 +53,4 @@ const IngredientSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model("Ingredient", IngredientSchema);
+module.exports = mongoose.model('Ingredient', IngredientSchema);

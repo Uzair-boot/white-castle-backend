@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const foreignKeyHelper = require("./helpers/foreign-key-helper");
+const mongoose = require('mongoose');
+const foreignKeyHelper = require('./helpers/foreign-key-helper');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -20,15 +20,15 @@ const UserSchema = new mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      default: "",
+      default: '',
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Role",
+      ref: 'Role',
       validate: {
         isAsync: true,
         validator: function (v) {
-          return foreignKeyHelper(mongoose.model("Role"), v);
+          return foreignKeyHelper(mongoose.model('Role'), v);
         },
         message: `Role doesn't exist`,
       },
@@ -41,4 +41,4 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('User', UserSchema);

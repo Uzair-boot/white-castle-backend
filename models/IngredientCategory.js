@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const IngredientSchema = new mongoose.Schema(
   {
@@ -17,4 +17,4 @@ const IngredientSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model("IngredientCategory", IngredientSchema);
+module.exports = mongoose.model('IngredientCategory', IngredientSchema);

@@ -1,9 +1,9 @@
-const router = require("express").Router();
-const IngredientCategory = require("../models/IngredientCategory");
+const router = require('express').Router();
+const IngredientCategory = require('../models/IngredientCategory');
 
 //create a ingredientCategory
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   // if(req.body.isAdmin){
   const newIngredientCategory = new IngredientCategory(req.body);
   try {
@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
 });
 
 //update ingredientCategory
-router.put("/:id", async (req, res) => {
+router.put('/:id', async (req, res) => {
   if (req.body.isAdmin) {
     try {
       const ingredientCategory = await IngredientCategory.findByIdAndUpdate(
@@ -28,34 +28,34 @@ router.put("/:id", async (req, res) => {
           $set: req.body,
         },
       );
-      res.status(200).json("IngredientCategory has been Updated");
+      res.status(200).json('IngredientCategory has been Updated');
     } catch (err) {
       return res.status(500).json(err);
     }
   } else {
-    return res.status(403).json("You are unauthorized.");
+    return res.status(403).json('You are unauthorized.');
   }
 });
 
 //Delete ingredientCategory
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   if (req.body.isAdmin) {
     try {
       const ingredientCategory = await IngredientCategory.findByIdAndDelete(
         req.params.id,
       );
-      res.status(200).json("Unit has been Deleted");
+      res.status(200).json('Unit has been Deleted');
     } catch (err) {
       return res.status(500).json(err);
     }
   } else {
-    return res.status(403).json("You are unauthorized.");
+    return res.status(403).json('You are unauthorized.');
   }
 });
 
 // Get ingredientCategory
 
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const ingredientCategory = await IngredientCategory.findById(req.params.id);
     const { updatedAt, ...other } = ingredientCategory._doc;
@@ -67,7 +67,7 @@ router.get("/:id", async (req, res) => {
 
 // get all ingredientCategories
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const ingredientCategories = await IngredientCategory.find();
     res.status(200).json(ingredientCategories);

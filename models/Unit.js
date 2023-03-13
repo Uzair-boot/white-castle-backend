@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const foreignKeyHelper = require("./helpers/foreign-key-helper");
+const mongoose = require('mongoose');
+const foreignKeyHelper = require('./helpers/foreign-key-helper');
 
 const UnitSchema = new mongoose.Schema(
   {
@@ -18,11 +18,11 @@ const UnitSchema = new mongoose.Schema(
     },
     baseUnit: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Unit",
+      ref: 'Unit',
       validate: {
         isAsync: true,
         validator: function (v) {
-          return foreignKeyHelper(mongoose.model("Unit"), v);
+          return foreignKeyHelper(mongoose.model('Unit'), v);
         },
         message: `Unit doesn't exist`,
       },
@@ -39,4 +39,4 @@ const UnitSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model("Unit", UnitSchema);
+module.exports = mongoose.model('Unit', UnitSchema);
