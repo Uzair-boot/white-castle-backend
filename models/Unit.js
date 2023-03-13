@@ -1,37 +1,35 @@
 const mongoose = require("mongoose");
 const foreignKeyHelper = require("./helpers/foreign-key-helper");
 
-const UserSchema = new mongoose.Schema(
+const UnitSchema = new mongoose.Schema(
   {
-    phone: {
-      type: Number,
-      required: true,
+    code: {
+      type: String,
+      require: true,
+      min: 1,
+      max: 10,
       unique: true,
     },
-    email: {
+    name: {
       type: String,
       required: true,
       max: 50,
       unique: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
-    profilePicture: {
-      type: String,
-      default: "",
-    },
-    role: {
+    baseUnit: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Role",
+      ref: "Unit",
       validate: {
         isAsync: true,
         validator: function (v) {
-          return foreignKeyHelper(mongoose.model("Role"), v);
+          return foreignKeyHelper(mongoose.model("Unit"), v);
         },
-        message: `Role doesn't exist`,
+        message: `Unit doesn't exist`,
       },
+    },
+    baseMultiplier: {
+      type: Number,
+      default: 1,
     },
     desc: {
       type: String,
@@ -41,4 +39,4 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("Unit", UnitSchema);

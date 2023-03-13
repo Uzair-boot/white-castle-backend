@@ -1,32 +1,33 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const MenuSchema = new mongoose.Schema({
-    userId:{
-        type : String,
-        required: true
+const MenuSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
     },
-    name:{
-        type: String,
-        max: 50,
+    name: {
+      type: String,
+      max: 50,
     },
-    desc:{
-        type: String,
-        max: 500,
+    desc: {
+      type: String,
+      max: 500,
     },
-    type:{
-        type: String,
-        max: 50,
+    type: {
+      type: String,
+      max: 50,
     },
     img: {
-        type: String
+      type: String,
     },
 
     // likes :{
     //     type : Array,
     //     default : []
     // }
-},
-{timestamps: true}
+  },
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Menu", MenuSchema);
